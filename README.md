@@ -28,4 +28,32 @@
 ### 5. Performance Testing & Deployment
 * Validated rendering performance across web views and interactive cross-filters.
 * Published directly to Tableau Public cloud and archived repository assets on GitHub.
+
+
+---
+
+## Business Logic & Transformations (Code & Formulas)
+Instead of traditional procedural scripting, BI transformations and calculation logic were built into the data model:
+* **Measures Aggregation:** Applied analytical aggregation for clinical indicators:
+  * `AVG([Blood Pressure])`
+  * `AVG([Glucose])`
+  * `AVG([Heart Disease])`
+* **Discrete Attributes:** Mapped categorical variables into distinct visual dimensions:
+  * `Smoking (0 = Non-Smoker, 1 = Smoker)`
+  * `Exercise Level (0 = Low, 1 = Moderate/High)`
+  * `Diabetes (0 = Negative, 1 = Positive)`
+
+---
+
+## Key Findings & Results
+* **Clinical Correlation:** Patients exhibiting higher blood glucose levels demonstrated an associated rise in systolic blood pressure trends.
+* **Lifestyle Risk Matrix:** The Heatmap visual confirms that smoking paired with low physical activity directly correlates with elevated cardiac risks.
+* **Demographic Patterns:** Cardiac and diabetes markers show sharp increments in cohorts over 45 years of age.
+
+---
+
+## References
+* **Dataset:** Clinical and Lifestyle Parameters Dataset (`smart_healthcare_dataset.csv`)
+* **Analytics & BI Engine:** Tableau Public Web Authoring
+* **Documentation Framework:** Healthcare Risk Exploratory Data Analysis Standards
 *
