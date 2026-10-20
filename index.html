@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health360 | Healthcare Risk & Disease Analytics</title>
+<meta name="description" content="Health360 healthcare risk and disease analytics project exploring 5,000 patient records with Tableau dashboards and story.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+:root{--navy:#10243a;--blue:#2563eb;--cyan:#16b8c4;--ink:#1d2b3a;--muted:#64748b;--pale:#f3f7fb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#f7f9fc}
+.navbar{background:rgba(16,36,58,.97);box-shadow:0 5px 25px #10243a20}.navbar-brand{font-weight:800;letter-spacing:-.5px}.brand-mark{display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--cyan),#60a5fa);width:38px;height:38px;border-radius:12px;margin-right:9px;color:white}
+.nav-link{color:#dbeafe!important;font-weight:600}.nav-link:hover{color:#67e8f9!important}
+.hero{background:radial-gradient(circle at 80% 20%,#1d4ed855,transparent 30%),linear-gradient(130deg,#10243a,#173e64 65%,#087e8b);color:white;padding:135px 0 75px;overflow:hidden}
+.eyebrow{color:#67e8f9;text-transform:uppercase;letter-spacing:2px;font-size:.78rem;font-weight:800}.hero h1{font-size:clamp(2.4rem,5vw,4.5rem);font-weight:850;letter-spacing:-2px;line-height:1.06}.hero p{max-width:690px;color:#d8e6f5;font-size:1.1rem;line-height:1.8}
+.btn-glow{background:linear-gradient(100deg,var(--cyan),#3b82f6);border:0;color:white;font-weight:700;border-radius:12px;padding:13px 22px}.btn-glow:hover{color:white;transform:translateY(-1px)}
+.hero-panel{background:#ffffff12;border:1px solid #ffffff2e;border-radius:22px;padding:26px;backdrop-filter:blur(10px)}.hero-panel .big{font-size:2.5rem;font-weight:850}.hero-panel .small{color:#dbeafe}
+.section{padding:78px 0}.section-title{font-weight:850;letter-spacing:-1px}.section-sub{color:var(--muted);max-width:750px;line-height:1.75}
+.kpi{height:100%;background:white;border:1px solid #e6edf5;border-radius:18px;padding:24px;box-shadow:0 12px 35px #183b5b08}.kpi-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#e7f8fa;color:#0891a2;font-size:1.35rem}.kpi-number{font-size:2rem;font-weight:850;margin-top:17px}.kpi-label{color:var(--muted);font-weight:600}.tag{display:inline-block;background:#e9f7fb;color:#087e8b;border-radius:30px;padding:6px 11px;font-size:.78rem;font-weight:800}
+.panel{background:white;border:1px solid #e2eaf3;border-radius:20px;overflow:hidden;box-shadow:0 14px 40px #1636530b}.panel-head{padding:23px 25px;border-bottom:1px solid #e8eef5;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.panel-head h3{font-size:1.15rem;font-weight:800;margin:0}.panel-body{padding:20px}
+.tableau-embed-wrap{width:100%;min-height:760px;position:relative;overflow-x:auto;overflow-y:hidden;border-radius:12px;background:#f8fafc}.tableauPlaceholder{position:relative;width:1016px;min-height:1014px;margin:0 auto}.tableau-embed-wrap .tableauPlaceholder img{max-width:100%;height:auto}
+.embed-note{font-size:.88rem;color:var(--muted);padding:12px 3px 0}.chart-card{height:100%;background:white;border:1px solid #e3eaf2;border-radius:16px;padding:23px;transition:.2s}.chart-card:hover{transform:translateY(-4px);box-shadow:0 15px 35px #173b5a12}.chart-icon{font-size:1.5rem;color:#0e9ca8;margin-bottom:14px}.chart-card h3{font-size:1rem;font-weight:800}.chart-card p{color:var(--muted);font-size:.92rem;line-height:1.65;margin:0}
+.story-insight{background:linear-gradient(130deg,#eafafa,#eef4ff);border:1px solid #d8edf5;border-radius:18px;padding:26px;height:100%}.story-insight h3{font-size:1rem;font-weight:800}.story-insight p{color:#526579;line-height:1.7;margin-bottom:0}
+.workflow{display:flex;gap:16px;align-items:flex-start}.step{flex:0 0 38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#e3f8fa;color:#087e8b;font-weight:850}
+footer{background:#10243a;color:#cbd5e1;padding:28px 0}footer strong{color:white}
+@media(max-width:767px){.hero{padding-top:115px}.section{padding:55px 0}.tableau-embed-wrap{min-height:850px;overflow-x:auto}.tableauPlaceholder{width:1016px;margin:0}.hero-panel{margin-top:22px}}
+
+.chart-photo-caption h3{font-size:1rem;font-weight:800;margin:11px 0 0}
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+ <div class="container">
+  <a class="navbar-brand d-flex align-items-center" href="#home"><span class="brand-mark"><i class="bi bi-heart-pulse-fill"></i></span>Health360</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse" id="nav"><ul class="navbar-nav ms-auto gap-lg-2">
+   <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li><li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li><li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li><li class="nav-item"><a class="nav-link" href="#story">Story</a></li>
+  </ul></div>
+ </div>
+</nav>
+<header class="hero" id="home"><div class="container"><div class="row align-items-center g-5">
+ <div class="col-lg-8"><div class="eyebrow mb-3">Healthcare analytics · Tableau project</div><h1>Understand risk.<br><span style="color:#67e8f9">Improve outcomes.</span></h1>
+ <p>Health360 explores patient demographics, lifestyle habits, clinical indicators and chronic disease patterns to help identify higher-risk groups and support evidence-informed preventive care.</p>
+ <div class="d-flex flex-wrap gap-3 mt-4"><a class="btn btn-glow" href="#dashboard"><i class="bi bi-bar-chart-line me-2"></i>Explore dashboard</a><a class="btn btn-outline-light rounded-3 px-4 py-3 fw-semibold" href="#story">View project story <i class="bi bi-arrow-down-right ms-1"></i></a></div>
+ </div><div class="col-lg-4"><div class="hero-panel"><div class="d-flex align-items-center justify-content-between"><span class="tag">PROJECT SNAPSHOT</span><i class="bi bi-activity fs-3" style="color:#67e8f9"></i></div><div class="big mt-3">5,000</div><div class="small">patient records in the dataset</div><hr style="border-color:#ffffff40"><div class="d-flex justify-content-between py-2"><span class="small">Dataset fields</span><strong>17 columns</strong></div><div class="d-flex justify-content-between py-2"><span class="small">Visualizations</span><strong>9 chart types/views</strong></div><div class="d-flex justify-content-between py-2"><span class="small">Platform</span><strong>Tableau</strong></div></div></div>
+</div></div></header>
+<main>
+<section class="section" id="overview"><div class="container"><div class="mb-4"><div class="eyebrow">Project overview</div><h2 class="section-title mt-2">A clearer view of patient health risks</h2><p class="section-sub">The project analyzes age, BMI, blood pressure, cholesterol, glucose, smoking, alcohol consumption, fatigue, chest pain, dizziness and exercise levels. Tableau views help compare groups, explore patterns and communicate findings.</p></div>
+<div class="row g-3">
+ <div class="col-6 col-lg-3"><div class="kpi"><div class="kpi-icon"><i class="bi bi-people"></i></div><div class="kpi-number">5,000</div><div class="kpi-label">Patient records</div></div></div>
+ <div class="col-6 col-lg-3"><div class="kpi"><div class="kpi-icon"><i class="bi bi-layout-text-window-reverse"></i></div><div class="kpi-number">17</div><div class="kpi-label">Dataset columns</div></div></div>
+ <div class="col-6 col-lg-3"><div class="kpi"><div class="kpi-icon"><i class="bi bi-bar-chart"></i></div><div class="kpi-number">9</div><div class="kpi-label">Listed visualizations</div></div></div>
+ <div class="col-6 col-lg-3"><div class="kpi"><div class="kpi-icon"><i class="bi bi-shield-check"></i></div><div class="kpi-number">3</div><div class="kpi-label">Analysis perspectives</div></div></div>
+</div>
+<div class="row g-3 mt-2"><div class="col-lg-4"><div class="story-insight"><h3><i class="bi bi-heart-pulse me-2 text-info"></i>Clinical risk assessment</h3><p>Compare clinical indicators such as blood pressure, BMI, cholesterol and glucose to explore potential high-risk patient segments.</p></div></div><div class="col-lg-4"><div class="story-insight"><h3><i class="bi bi-person-walking me-2 text-info"></i>Lifestyle patterns</h3><p>Explore how smoking, alcohol consumption and exercise levels vary across patient groups and how they relate to reported outcomes.</p></div></div><div class="col-lg-4"><div class="story-insight"><h3><i class="bi bi-globe-asia-australia me-2 text-info"></i>Population health</h3><p>Compare age groups and BMI categories to identify segments that may warrant closer public-health attention.</p></div></div></div>
+</div></section>
+<section class="section pt-0" id="visualizations"><div class="container"><div class="eyebrow">What the analysis includes</div><h2 class="section-title mt-2">Nine Tableau visualizations</h2><p class="section-sub mb-4">These are the nine views listed in the project description. The embedded Tableau dashboard below is the interactive source for the published visualizations.</p>
+<div class="row g-3">
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-speedometer2"></i></div><h3>1. KPI — Patient Health & Disease Overview</h3><p>High-level patient and disease metrics for a quick overview of the dataset.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-bar-chart-fill"></i></div><h3>2. Bar Chart — Average Blood Pressure Across Age Groups</h3><p>Compare average blood pressure by age category. The supplied project notes report the Old group at 135.67 mmHg.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-bar-chart-steps"></i></div><h3>3. Grouped Bar — Alcohol and Smoking by Age</h3><p>Compare reported smoking and alcohol consumption patterns across age groups.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-pie-chart-fill"></i></div><h3>4. Donut Chart — Exercise Level Distribution</h3><p>Show the distribution of exercise levels across the patient population.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-pie-chart"></i></div><h3>5. Pie Chart — Patient Distribution by Age Group</h3><p>Summarize how the dataset's patient records are distributed among age groups.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-bar-chart-line-fill"></i></div><h3>6. Grouped Bar — Heart Disease vs Diabetes by BMI</h3><p>Compare heart disease and diabetes prevalence across BMI categories.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-graph-up-arrow"></i></div><h3>7. Bar Chart — BMI Category vs Heart Disease Rate</h3><p>Compare the recorded heart disease rate between BMI categories.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-grid-3x3"></i></div><h3>8. Heat Map — Heart Disease by BMI and Exercise</h3><p>Use color intensity to explore heart disease patterns across BMI categories and exercise levels.</p></article></div>
+ <div class="col-md-6 col-lg-4"><article class="chart-card"><div class="chart-icon"><i class="bi bi-clipboard2-pulse"></i></div><h3>9. Bar Chart — Age Group by Fatigue Condition</h3><p>Compare fatigue-condition distribution across the defined age groups.</p></article></div>
+</div>
+</div></section>
+<section class="section pt-0" id="dashboard"><div class="container"><div class="panel"><div class="panel-head"><div><div class="eyebrow">Interactive Tableau view</div><h2 class="section-title mt-1 mb-0">Health360 Dashboard</h2></div><a class="btn btn-glow" href="https://public.tableau.com/views/shared/888BXB7RQ" target="_blank" rel="noopener">Open in Tableau <i class="bi bi-box-arrow-up-right ms-1"></i></a></div><div class="panel-body">
+<div class="tableau-embed-wrap">
+  <div class="tableauPlaceholder" id="viz1792514710248" style="position:relative;width:100%">
+    <noscript><a href="https://public.tableau.com/views/shared/888BXB7RQ"><img alt="Health360 Dashboard" src="https://public.tableau.com/static/images/88/888BXB7RQ/1_rss.png" style="border:0;width:100%"></a></noscript>
+    <object class="tableauViz" style="display:none">
+      <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
+      <param name="embed_code_version" value="3">
+      <param name="path" value="shared%2F888BXB7RQ">
+      <param name="toolbar" value="yes">
+      <param name="static_image" value="https://public.tableau.com/static/images/88/888BXB7RQ/1.png">
+      <param name="animate_transition" value="yes">
+      <param name="display_static_image" value="yes">
+      <param name="display_spinner" value="yes">
+      <param name="display_overlay" value="yes">
+      <param name="display_count" value="yes">
+      <param name="language" value="en-US">
+    </object>
+  </div>
+</div>
+<div class="embed-note"><i class="bi bi-info-circle me-1"></i>Interactive Tableau dashboard. On smaller screens, scroll horizontally if needed; use “Open in Tableau” for the full view.</div>
+</div></div></div></section>
+<section class="section pt-0" id="story"><div class="container"><div class="panel"><div class="panel-head"><div><div class="eyebrow">Guided analysis</div><h2 class="section-title mt-1 mb-0">Health360 Project Story</h2></div><a class="btn btn-glow" href="https://public.tableau.com/views/shared/7YWY7BZ94" target="_blank" rel="noopener">Open story in Tableau <i class="bi bi-box-arrow-up-right ms-1"></i></a></div><div class="panel-body">
+<div class="tableau-embed-wrap">
+  <div class="tableauPlaceholder" id="viz1792514642771" style="position:relative;width:100%">
+    <noscript><a href="https://public.tableau.com/views/shared/7YWY7BZ94"><img alt="Health360 Tableau Story" src="https://public.tableau.com/static/images/7Y/7YWY7BZ94/1_rss.png" style="border:0;width:100%"></a></noscript>
+    <object class="tableauViz" style="display:none">
+      <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
+      <param name="embed_code_version" value="3">
+      <param name="path" value="shared%2F7YWY7BZ94">
+      <param name="toolbar" value="yes">
+      <param name="static_image" value="https://public.tableau.com/static/images/7Y/7YWY7BZ94/1.png">
+      <param name="animate_transition" value="yes">
+      <param name="display_static_image" value="yes">
+      <param name="display_spinner" value="yes">
+      <param name="display_overlay" value="yes">
+      <param name="display_count" value="yes">
+      <param name="language" value="en-US">
+    </object>
+  </div>
+</div>
+<div class="embed-note"><i class="bi bi-info-circle me-1"></i>Interactive Tableau story. On smaller screens, scroll horizontally if needed; use “Open story in Tableau” for the full view.</div>
+</div></div></div></section>
+<section class="section pt-0"><div class="container"><div class="eyebrow">Approach</div><h2 class="section-title mt-2">From data to actionable insights</h2><div class="row g-4 mt-1">
+<div class="col-md-4"><div class="workflow"><div class="step">01</div><div><h3 class="h6 fw-bold">Data collection & preparation</h3><p class="text-secondary mb-0">Connect the healthcare dataset in Tableau and check record completeness and field types.</p></div></div></div>
+<div class="col-md-4"><div class="workflow"><div class="step">02</div><div><h3 class="h6 fw-bold">Visual analysis</h3><p class="text-secondary mb-0">Build comparisons across age groups, BMI categories, lifestyle habits and clinical measures.</p></div></div></div>
+<div class="col-md-4"><div class="workflow"><div class="step">03</div><div><h3 class="h6 fw-bold">Interpretation</h3><p class="text-secondary mb-0">Use the dashboard and story to communicate patterns and support preventive-care discussions.</p></div></div></div>
+</div><p class="small text-secondary mt-4">Important: these charts describe patterns in the supplied dataset; they are not a clinical diagnosis or proof that one factor causes a disease.</p></div></section>
+</main>
+<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><div><strong>Health360</strong> · Comprehensive Healthcare Risk & Disease Analysis</div><div>Tableau-powered project · Dataset: 5,000 records</div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function () {
+  function initTableau(id) {
+    var divElement = document.getElementById(id);
+    if (!divElement) return;
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    if (!vizElement) return;
+
+    // Keep the Tableau object hidden; Tableau's own script replaces it with the interactive viz.
+    vizElement.style.width = '1016px';
+    vizElement.style.height = '1014px';
+
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    scriptElement.async = true;
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  }
+
+  initTableau('viz1792514710248');
+  initTableau('viz1792514642771');
+})();
+</script>
+</body>
+</html>
