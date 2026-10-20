@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Health360 comprehensive healthcare risk and disease analytics dashboard." />
+  <title>Health360 | Healthcare Risk & Disease Analytics</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Health360 home">
+      <span class="brand-icon">✚</span>
+      <span>Health<span>360</span><small>HEALTHCARE ANALYTICS</small></span>
+    </a>
+    <nav id="navLinks">
+      <a href="#overview">Overview</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#insights">Key insights</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="pulse"></span> DATA-DRIVEN HEALTHCARE</span>
+        <h1>Health360: Comprehensive Healthcare Risk &amp; Disease Analytics</h1>
+        <p>Explore patient indicators, lifestyle patterns, and health-risk trends through one clear, interactive dashboard.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#dashboard">Explore dashboard <span>↘</span></a>
+          <a class="btn secondary" href="#about">About the project</a>
+        </div>
+        <div class="hero-note"><span>✓</span> Sample dataset for educational and demonstration use</div>
+      </div>
+      <div class="hero-art" aria-label="Healthcare analytics illustration">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="medical-card">
+          <div class="medical-top"><span class="mini-cross">✚</span><span>Health overview</span><span class="live-dot"></span></div>
+          <div class="heart-icon">♡</div>
+          <div class="metric-line"><span>Health indicators</span><strong>360°</strong></div>
+          <div class="wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="mini-metrics"><div><small>Blood pressure</small><b>133 <i>mmHg</i></b></div><div><small>Patient records</small><b>5,000</b></div></div>
+        </div>
+        <div class="floating-badge badge-left">＋ <span><b>Patient-first</b><small>Analytics view</small></span></div>
+        <div class="floating-badge badge-right">↗ <span><b>Risk patterns</b><small>Made clearer</small></span></div>
+      </div>
+      <div class="hero-glow"></div>
+    </section>
+
+    <section class="section intro" id="overview">
+      <div class="section-heading">
+        <span class="eyebrow">PROJECT OVERVIEW</span>
+        <h2>See the bigger picture of health</h2>
+        <p>Health360 brings key health indicators and lifestyle factors together to help explore patterns across age groups.</p>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card"><div class="stat-symbol blue">♙</div><p>Patients represented</p><h3>5,000</h3><span class="stat-foot"><i></i> Sample dataset</span></article>
+        <article class="stat-card"><div class="stat-symbol teal">♡</div><p>Average blood pressure</p><h3>133 <small>mmHg</small></h3><span class="stat-foot">Across selected age groups</span></article>
+        <article class="stat-card"><div class="stat-symbol violet">⌁</div><p>Lifestyle indicators</p><h3>4</h3><span class="stat-foot">Alcohol, smoking, fatigue, exercise</span></article>
+        <article class="stat-card"><div class="stat-symbol orange">◷</div><p>Age segments</p><h3>6</h3><span class="stat-foot">Population comparison groups</span></article>
+      </div>
+    </section>
+
+    <section class="section dashboard-section" id="dashboard">
+      <div class="dashboard-title">
+        <div><span class="eyebrow">INTERACTIVE EXPLORER</span><h2>Healthcare analytics dashboard</h2><p>Explore patient indicators by age group and lifestyle factor.</p></div>
+        <div class="dashboard-mark">H<span>360</span></div>
+      </div>
+      <div class="filter-panel">
+        <label>Age group
+          <select id="ageFilter">
+            <option value="all">All age groups</option>
+            <option value="Teenager">Teenager</option>
+            <option value="Young Adult">Young adult</option>
+            <option value="Adult">Adult</option>
+            <option value="Middle-aged">Middle-aged</option>
+            <option value="Older Adult">Older adult</option>
+            <option value="Senior">Senior</option>
+          </select>
+        </label>
+        <label>Health indicator
+          <select id="indicatorFilter">
+            <option value="all">All indicators</option>
+            <option value="bloodPressure">Blood pressure</option>
+            <option value="risk">Lifestyle risk</option>
+            <option value="disease">Disease category</option>
+          </select>
+        </label>
+        <div class="filter-actions"><button class="btn primary" id="resetBtn">Reset filters</button><button class="btn dark" id="printBtn">⎙ Print dashboard</button></div>
+      </div>
+
+      <div class="dashboard-stats">
+        <div><span class="stat-label">Patients represented</span><strong>5,000</strong><small><i class="green-dot"></i> Demonstration dataset</small></div>
+        <div><span class="stat-label">Average systolic BP</span><strong>133 <em>mmHg</em></strong><small>Sample average</small></div>
+        <div><span class="stat-label">Lifestyle indicators</span><strong>4</strong><small>Factors tracked</small></div>
+        <div><span class="stat-label">Age segments</span><strong>6</strong><small>Comparison groups</small></div>
+      </div>
+
+      <div class="chart-grid" id="chartGrid">
+        <article class="chart-card wide" data-chart="bloodPressure">
+          <div class="chart-heading"><div><h3>Average Blood Pressure Across Age</h3><p>Average systolic blood pressure by age group</p></div><span class="chart-tag">Clinical indicator</span></div>
+          <div class="chart-wrap"><canvas id="bpChart"></canvas></div>
+        </article>
+        <article class="chart-card" data-chart="risk">
+          <div class="chart-heading"><div><h3>Lifestyle Risk Heatmap</h3><p>Relative indicator score by age and lifestyle factor</p></div><span class="chart-tag">Risk patterns</span></div>
+          <div class="heatmap-wrap" id="heatmap"></div>
+          <div class="legend"><span><i class="heat low"></i> Lower</span><span><i class="heat medium"></i> Moderate</span><span><i class="heat high"></i> Higher</span></div>
+        </article>
+        <article class="chart-card" data-chart="disease">
+          <div class="chart-heading"><div><h3>Disease Category Distribution</h3><p>Illustrative share of sample records</p></div><span class="chart-tag">Population view</span></div>
+          <div class="chart-wrap doughnut-wrap"><canvas id="diseaseChart"></canvas></div>
+        </article>
+        <article class="chart-card" data-chart="risk">
+          <div class="chart-heading"><div><h3>Lifestyle Factors</h3><p>Sample indicator score by factor</p></div><span class="chart-tag">Lifestyle</span></div>
+          <div class="chart-wrap"><canvas id="lifestyleChart"></canvas></div>
+        </article>
+        <article class="chart-card wide" data-chart="bloodPressure">
+          <div class="chart-heading"><div><h3>Health Indicator Trends</h3><p>Illustrative trend across age segments</p></div><span class="chart-tag">Trend analysis</span></div>
+          <div class="chart-wrap trend-wrap"><canvas id="trendChart"></canvas></div>
+        </article>
+      </div>
+      <p class="data-disclaimer">Note: This page uses illustrative sample values for a student project demo. It is not a clinical tool and must not be used for diagnosis or treatment decisions.</p>
+    </section>
+
+    <section class="section insights" id="insights">
+      <div class="section-heading"><span class="eyebrow">DATA STORY</span><h2>Insights worth exploring</h2><p>Use these prompts to guide analysis—not as medical conclusions.</p></div>
+      <div class="insight-grid">
+        <article class="insight-card"><div class="insight-icon blue">⌁</div><h3>Age &amp; blood pressure</h3><p>Compare average systolic readings between age segments and look for differences that merit further investigation.</p><span>01 / Clinical indicators</span></article>
+        <article class="insight-card"><div class="insight-icon coral">◉</div><h3>Lifestyle patterns</h3><p>Explore how sample lifestyle indicators vary across groups while keeping correlation separate from causation.</p><span>02 / Lifestyle analysis</span></article>
+        <article class="insight-card"><div class="insight-icon teal">✚</div><h3>Disease distribution</h3><p>Review category proportions and identify which groups may need more detailed data-quality checks.</p><span>03 / Disease analytics</span></article>
+      </div>
+    </section>
+
+    <section class="about-band" id="about">
+      <div class="about-inner">
+        <div><span class="eyebrow">ABOUT HEALTH360</span><h2>Clearer data. Better questions.</h2><p>Health360 is a healthcare analytics project concept designed to present patient indicators and disease-risk patterns in an approachable visual format.</p></div>
+        <div class="about-points"><p><span>✓</span> Responsive dashboard layout</p><p><span>✓</span> Interactive filters and charts</p><p><span>✓</span> Print-ready dashboard view</p><p><span>✓</span> Educational sample data</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-icon">✚</span><span>Health<span>360</span><small>HEALTHCARE ANALYTICS</small></span></a><p>Health360 · Comprehensive Healthcare Risk &amp; Disease Analytics</p><a href="#home" class="back-top">Back to top ↑</a><small class="copyright">© 2026 Health360 Student Project. Demo data only.</small></footer>
+  <script src="script.js"></script>
+</body>
+</html>

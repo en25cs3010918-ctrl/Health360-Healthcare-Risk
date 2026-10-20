@@ -1,59 +1,35 @@
-# Health360: Comprehensive Healthcare Risk & Disease Analysis
+# Health360 — Healthcare Risk & Disease Analytics
 
-## Project Deliverables
-* **Live Interactive Dashboard & Story:** [Tableau Public View](https://public.tableau.com/views/Health360HealthcareRisk/Health360ExecutiveDashboard)
-* **Dataset Used:** `smart_healthcare_dataset.csv`
+A responsive student-project website for **Health360: Comprehensive Healthcare Risk and Disease Analytics**.
 
----
+## Files
+- `index.html` — page structure and sections
+- `style.css` — responsive design, mobile layout, and print styles
+- `script.js` — interactive charts, filters, heatmap, reset, and print controls
 
-## Step-by-Step Project Development Procedure
+## Run locally
+1. Download/extract the project folder.
+2. Open `index.html` in a modern browser.
+3. Internet is needed for Chart.js and Google Fonts CDNs. The page structure still loads without fonts; charts need Chart.js.
 
-### 1. Data Collection & Extraction
-* Loaded the raw `smart_healthcare_dataset.csv` into Tableau Public.
-* Verified schema integrity, row count, and field associations.
+## Important data note
+The dashboard displays **illustrative sample values** for design and educational demonstration. It is not clinical advice, not a diagnosis tool, and not a substitute for validated healthcare data. The displayed patient representation is 5,000, as requested, but no real patient records are included.
 
-### 2. Data Preparation
-* Formatted categorical variables (`Smoking`, `Exercise Level`, `Heart Disease`, `Diabetes`) into discrete dimensions.
-* Applied continuous scaling and aggregation metrics (`AVG`) for key health indicators like Blood Pressure and Glucose levels.
+## Publish on GitHub Pages
+1. Sign in at https://github.com and create a new repository, e.g. `health360-analytics`.
+2. Set it to Public if you want GitHub Pages publishing on the free plan.
+3. On the repository page, choose **Add file → Upload files**.
+4. Upload `index.html`, `style.css`, `script.js`, and `README.md` (or upload the extracted folder's contents).
+5. Add a commit message such as `Add Health360 analytics website` and click **Commit changes**.
+6. Go to **Settings → Pages**.
+7. Under **Build and deployment**, choose **Deploy from a branch**.
+8. Select branch **main** and folder **/(root)**, then click **Save**.
+9. Wait a minute or two, refresh the Pages settings, and open the published URL shown there. It will usually look like `https://YOUR-USERNAME.github.io/health360-analytics/`.
 
-### 3. Visualizations Created
-* **Clinical Risk Analysis:** Evaluated clinical risk thresholds by mapping Blood Pressure against Glucose levels using a scatter distribution.
-* **Lifestyle Risk Heatmap:** Correlated heart disease risk density across lifestyle variables (Smoking habits vs Exercise intensity).
-* **Demographic Disease Risk:** Visualized age-cohort disease distribution (Diabetes & Cardiac risks).
-
-### 4. Executive Dashboard & Story
-* Assembled all analytical views into the `Health360 Executive Dashboard` with responsive layout and clear KPI legends.
-* Sequenced key insights into a 4-scene narrative Story covering clinical risk, lifestyle patterns, demographic impact, and the executive summary.
-
-### 5. Performance Testing & Deployment
-* Validated rendering performance across web views and interactive cross-filters.
-* Published directly to Tableau Public cloud and archived repository assets on GitHub.
-
-
----
-
-## Business Logic & Transformations (Code & Formulas)
-Instead of traditional procedural scripting, BI transformations and calculation logic were built into the data model:
-* **Measures Aggregation:** Applied analytical aggregation for clinical indicators:
-  * `AVG([Blood Pressure])`
-  * `AVG([Glucose])`
-  * `AVG([Heart Disease])`
-* **Discrete Attributes:** Mapped categorical variables into distinct visual dimensions:
-  * `Smoking (0 = Non-Smoker, 1 = Smoker)`
-  * `Exercise Level (0 = Low, 1 = Moderate/High)`
-  * `Diabetes (0 = Negative, 1 = Positive)`
-
----
-
-## Key Findings & Results
-* **Clinical Correlation:** Patients exhibiting higher blood glucose levels demonstrated an associated rise in systolic blood pressure trends.
-* **Lifestyle Risk Matrix:** The Heatmap visual confirms that smoking paired with low physical activity directly correlates with elevated cardiac risks.
-* **Demographic Patterns:** Cardiac and diabetes markers show sharp increments in cohorts over 45 years of age.
-
----
-
-## References
-* **Dataset:** Clinical and Lifestyle Parameters Dataset (`smart_healthcare_dataset.csv`)
-* **Analytics & BI Engine:** Tableau Public Web Authoring
-* **Documentation Framework:** Healthcare Risk Exploratory Data Analysis Standards
-*
+## Updating the website
+Edit the files in VS Code, then return to the repository and upload the changed files, or use Git commands:
+```bash
+git add .
+git commit -m "Update Health360 dashboard"
+git push
+```
